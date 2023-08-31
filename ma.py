@@ -62,15 +62,18 @@ def main():
             final_query = select_data_query
 
     print("\n")
-    output_file = input("Enter file name to save your output data: ")
-    output_file += ".txt"
 
-    uk.clear_console()
+    condition = 'no'
+    while condition == 'no':
+        output_file = input("Enter file name to save your output data: ")
+        output_file += ".txt"
 
-    if uk.confirm_overwrite(output_file):
-        uk.save_to_txt(final_query, output_file)
-    else:
-        print(f"No changes made. Exiting '{output_file}'")
+        uk.clear_console()
+        condition = uk.confirm_overwrite(output_file)
+        if condition or condition == 'yes':
+            uk.save_to_txt(final_query, output_file)
+        else:
+            print(f"No changes made. Exiting '{output_file}'")
 
 
 if __name__ == "__main__":

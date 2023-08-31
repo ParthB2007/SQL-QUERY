@@ -19,7 +19,7 @@ def confirm_overwrite(file_name):
     if os.path.exists(file_name):
         overwrite = get_valid_input(f"'{file_name}' already exists. Do you want to overwrite it? (yes/no): ",
                                     ['yes', 'no'])
-        return overwrite == 'yes'
+        return overwrite
     return True
 
 

@@ -19,7 +19,7 @@ def confirm_overwrite(file_name):
     if os.path.exists(file_name):
         overwrite = get_valid_input(f"'{file_name}' already exists. Do you want to overwrite it? (yes/no): ",
                                     ['yes', 'no'])
-        return overwrite == 'yes'
+        return overwrite
     return True
 
 
@@ -147,15 +147,18 @@ def main():
             final_query = select_data_query
 
     print("\n")
-    output_file = input("Enter file name to save your output data: ")
-    output_file += ".txt"
 
-    clear_console()
+    condition = 'no'
+    while condition == 'no':
+        output_file = input("Enter file name to save your output data: ")
+        output_file += ".txt"
 
-    if confirm_overwrite(output_file):
-        save_to_txt(final_query, output_file)
-    else:
-        print(f"No changes made. Exiting '{output_file}'")
+        clear_console()
+        condition = confirm_overwrite(output_file)
+        if condition or condition == 'yes':
+            save_to_txt(final_query, output_file)
+        else:
+            print(f"No changes made. Exiting '{output_file}'")
 
 
 if __name__ == "__main__":
