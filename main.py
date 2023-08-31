@@ -69,8 +69,20 @@ def desc_table(table_name):
     return query
 
 
-def select_query(table_name):
+def select_query1(table_name):
     query = f"SELECT * FROM {table_name};"
+    print(query)
+    return query
+
+
+def select_query2(table_name, Condition):
+    query = f"SELECT * FROM {table_name} where {Condition};"
+    print(query)
+    return query
+
+
+def select_query3(table_name, find):
+    query = f"SELECT {find} FROM {table_name};"
     print(query)
     return query
 
@@ -109,11 +121,28 @@ def main():
             final_query = insert_query
 
     else:
+        clear_console()
         if choice == '3':
             desc_query = desc_table(table_name)
             final_query = desc_query
         elif choice == '4':
-            select_data_query = select_query(table_name)
+            print("Select an option:")
+            print("1. Full table")
+            print("2. Specific raw")
+            print("3. Specific column")
+
+            select_choice = get_valid_input("Enter your choice (1/2/3): ", ['1', '2', '3'])
+            select_data_query = ""
+
+            if select_choice == '1':
+                select_data_query = select_query1(table_name)
+            elif select_choice == '2':
+                Condition = input("What u wanna find? : ")
+                select_data_query = select_query2(table_name, Condition)
+            elif select_choice == '3':
+                Find = input("Enter column name : ")
+                select_data_query = select_query3(table_name, Find)
+
             final_query = select_data_query
 
     print("\n\n")
@@ -122,11 +151,10 @@ def main():
 
     clear_console()
 
-    if final_query:
-        if confirm_overwrite(output_file):
-            save_to_txt(final_query, output_file)
-        else:
-            print(f"No changes made. Exiting '{output_file}'")
+    if confirm_overwrite(output_file):
+        save_to_txt(final_query, output_file)
+    else:
+        print(f"No changes made. Exiting '{output_file}'")
 
 
 if __name__ == "__main__":
