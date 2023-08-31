@@ -121,7 +121,6 @@ def main():
             final_query = insert_query
 
     else:
-        clear_console()
         if choice == '3':
             desc_query = desc_table(table_name)
             final_query = desc_query
